@@ -7,8 +7,12 @@ export function AddTask() {
   function addTaskk(e: { preventDefault: () => void }) {
     e.preventDefault();
     if (text.trim() === "") return;
-    if(tasks.some((item) => item.task === text)) return;
+    if (tasks.some((item) => item.task === text)) return;
     setTask([...tasks, { id: tasks.length, task: text, complete: false }]);
+  }
+
+  function deleteTask(id) {
+    setTask(tasks.filter((item) => item.id !== id));
   }
 
   return (
@@ -19,7 +23,10 @@ export function AddTask() {
       </form>
       <ul>
         {tasks.map((item) => (
-          <li key={item.id}>{item.task}</li>
+          <li key={item.id}>
+            {item.task}{" "}
+            <button onClick={() => deleteTask(item.id)}>Delete</button>
+          </li>
         ))}
       </ul>
     </>
