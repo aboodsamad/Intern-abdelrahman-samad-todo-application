@@ -7,6 +7,10 @@ export function AddTask() {
   const [text, setText] = useState("");
   const [edit, setEdit] = useState("");
   const [editId, setEditId] = useState<null | number>(null);
+  const [showComplete, setShowComplete] = useState(false);
+  const visibleTasks = showComplete
+    ? tasks.filter((item) => item.complete)
+    : tasks;
 
   function addTaskk(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -30,15 +34,26 @@ export function AddTask() {
     setEditId(null);
   }
 
+  function comleteTask(id) {
+    setTask(
+      tasks.map((item) =>
+        item.id === id ? { ...item, complete: !item.complete } : item,
+      ),
+    );
+  }
+
   return (
     <>
       <form onSubmit={addTaskk}>
         <input value={text} onChange={(e) => setText(e.target.value)} />
         <button type="submit">Add</button>
       </form>
-      {tasks.length > 0 && (
+      <button onClick={() => setShowComplete(!showComplete)}>
+        {showComplete ? "show All" : "show complete"}
+      </button>
+      {visibleTasks.length > 0 && (
         <ul>
-          {tasks.map((item) => (
+          {visibleTasks.map((item) => (
             <li key={item.id}>
               {item.task}{" "}
               <button onClick={() => deleteTask(item.id)}>Delete</button>
@@ -49,7 +64,7 @@ export function AddTask() {
               >
                 Edit
               </button>
-              
+              <input type="checkbox" onChange={() => comleteTask(item.id)} />
               {editId === item.id && (
                 <>
                   <input
