@@ -1,18 +1,12 @@
-
-import { AddTask } from './task-managment/AddTask'
-import './App.css'
+import "./App.css";
+import { TodoApp } from "./components/TodoApp";
 
 function App() {
-
-
   return (
     <>
-
-
-    <AddTask/>
-    
+      <TodoApp />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
