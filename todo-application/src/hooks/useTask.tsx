@@ -18,7 +18,7 @@ export function useTasks() {
   function completeTask(id: number) {
     setTasks(
       tasks.map((item) =>
-        item.id === id ? { ...item, complete: true } : item,
+        item.id === id ? { ...item, complete: !item.complete } : item,
       ),
     );
   }

@@ -18,6 +18,7 @@ export function TodoApp() {
     if (tasks.some((item) => item.task === text)) return;
     console.log(tasks.length);
     setTasks([...tasks, { id: Date.now(), task: text, complete: false }]);
+    setText("");
   }
 
   function saveEdit(id: number) {
@@ -33,15 +34,24 @@ export function TodoApp() {
 
   return (
     <>
-      <form onSubmit={addTaskk}>
-        <input value={text} onChange={(e) => setText(e.target.value)} />
-        <button type="submit">Add</button>
+      <form className="add-form" onSubmit={addTaskk}>
+        <input
+          className="add-input"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <button className="add-btn" type="submit">
+          Add
+        </button>
       </form>
-      <button onClick={() => setShowComplete(!showComplete)}>
+      <button
+        className="filter-btn"
+        onClick={() => setShowComplete(!showComplete)}
+      >
         {showComplete ? "show All" : "show complete"}
       </button>
       {visibleTasks.length > 0 && (
-        <ul>
+        <ul className="task-list">
           {visibleTasks.map((item) => (
             <TaskItem
               key={item.id}

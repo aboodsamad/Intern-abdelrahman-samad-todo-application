@@ -20,20 +20,40 @@ export function TaskItem({
   onSave,
 }: TaskItemProps) {
   return (
-    <li>
-      {item.task}
-      <button onClick={() => onDelete(item.id)}>Delete</button>
-      <button onClick={() => setEditId(item.id)}>Edit</button>
+    <li className="task-item">
+      <span className="task-text">{item.task}</span>
       <input
         type="checkbox"
+        className="task-checkbox"
         checked={item.complete}
         onChange={() => onComplete(item.id)}
       />
-      {editId === item.id &&(
-        <>
-            <input type="text" value={editText} onChange={(e) => setEditText(e.target.value)} />
-            <button onClick={() => onSave(editId)}>Save</button>
-        </>
+      <div className="task-actions">
+        <button className="delete-btn" onClick={() => onDelete(item.id)}>
+          Delete
+        </button>
+        <button
+          className="edit-btn"
+          onClick={() => {
+            setEditId(item.id);
+            setEditText(item.task);
+          }}
+        >
+          Edit
+        </button>
+      </div>
+      {editId === item.id && (
+        <div className="edit-row">
+          <input
+            type="text"
+            className="edit-input"
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+          />
+          <button className="save-btn" onClick={() => onSave(item.id)}>
+            Save
+          </button>
+        </div>
       )}
     </li>
   );
