@@ -37,6 +37,7 @@ export function TodoApp() {
       <form className="add-form" onSubmit={addTaskk}>
         <input
           className="add-input"
+          placeholder="Add New Task"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
